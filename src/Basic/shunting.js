@@ -240,7 +240,7 @@ function parse(rpn) {
             } else if (Object.keys(unary_functions).includes(t)) {
                 tr = genNode(unary_functions[t]);
 
-                a = stack.pop();
+                let a = stack.pop();
 
                 if (typeof a === 'number') {
                     tr.left = genNode(a, false);
@@ -256,12 +256,12 @@ function parse(rpn) {
     return stack.pop();
 }
 
-function eval(tree) {
+function evalFunc(tree) {
     if (tree.func) {
         if (tree.unary) {
-            return tree.val.eval(eval(tree.left));
+            return tree.val.evalFunc(evalFunc(tree.left));
         } else {
-            return tree.val.eval(eval(tree.left), eval(tree.right));
+            return tree.val.evalFunc(evalFunc(tree.left), evalFunc(tree.right));
         }
     } else {
         if (constant_names.includes(tree.val)) {
@@ -273,5 +273,5 @@ function eval(tree) {
 }
 
 
-module.exports = { RPN, eval, parse }
+module.exports = { RPN, evalFunc, parse }
 

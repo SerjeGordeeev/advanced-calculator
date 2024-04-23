@@ -1,4 +1,4 @@
-let { RPN, eval, parse } = require('./shunting')
+let { RPN, evalFunc, parse } = require('./shunting')
 
 function evaluate(val) {
     let eqn = val
@@ -11,7 +11,7 @@ function evaluate(val) {
 
     if (rpn) {
         let tree = parse(rpn);
-        ans = eval(tree);
+        ans = evalFunc(tree);
     }
 
     return ans
