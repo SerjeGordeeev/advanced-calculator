@@ -33,11 +33,65 @@ let constant_names = Object.keys(constants);
 
 let unary_functions = {
     sin: genFunc((x) => Math.sin(x)),
+    dsin: genFunc((x) => MathD.sin(x)),
     cos: genFunc((x) => Math.cos(x)),
+    dcos: genFunc((x) => MathD.cos(x)),
     tan: genFunc((x) => Math.tan(x)),
+    dtan: genFunc((x) => MathD.tan(x)),
     ln: genFunc((x) => Math.log(x)),
     log: genFunc((x) => Math.log10(x)),
     sqrt: genFunc((x) => Math.sqrt(x))
+};
+
+//helper
+/**
+ * converts degree to radians
+ * @param degree
+ * @returns {number}
+ */
+var toRadians = function (degree) {
+    return degree * (Math.PI / 180);
+};
+
+/**
+ * Converts radian to degree
+ * @param radians
+ * @returns {number}
+ */
+var toDegree = function (radians) {
+    return radians * (180 / Math.PI);
+}
+
+/**
+ * Rounds a number mathematical correct to the number of decimals
+ * @param number
+ * @param decimals (optional, default: 5)
+ * @returns {number}
+ */
+var roundNumber = function(number, decimals) {
+    decimals = decimals || 5;
+    return Math.round(number * Math.pow(10, decimals)) / Math.pow(10, decimals);
+}
+//the object
+var MathD = {
+    sin: function(number){
+        return roundNumber(Math.sin(toRadians(number)));
+    },
+    cos: function(number){
+        return roundNumber(Math.cos(toRadians(number)));
+    },
+    tan: function(number){
+        return roundNumber(Math.tan(toRadians(number)));
+    },
+    asin: function(number){
+        return roundNumber(toDegree(Math.asin(number)));
+    },
+    acos: function(number){
+        return roundNumber(toDegree(Math.acos(number)));
+    },
+    atan: function(number){
+        return roundNumber(toDegree(Math.atan(number)));
+    }
 };
 
 let binary_functions = {
