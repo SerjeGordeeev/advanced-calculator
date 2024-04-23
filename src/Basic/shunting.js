@@ -5,9 +5,9 @@ let TYPE_ELSE = 'e';
 let TYPE_LPAREN = '(';
 let TYPE_RPAREN = ')';
 
-function genFunc(eval, type = TYPE_FUNC, prec = 0, left = true) {
+function genFunc(evalFunc, type = TYPE_FUNC, prec = 0, left = true) {
     return {
-        eval: eval,
+        evalFunc: evalFunc,
         t: type,
         prec: prec,
         left: left
